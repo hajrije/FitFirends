@@ -1,0 +1,108 @@
+﻿@page "{id}"
+@model FitFriends.Pages.PostModel
+@{
+    ViewData["Title"] = "Post";
+}
+
+<h1>Post Details </h1>
+
+<article>
+                                              @*permbajtja  e postit kur e klikojme *@
+    <div class="col-md-12">
+        <h1>@Model.Post.Title</h1>             
+        <img src="@Model.Post.Image" />
+        <h5 name="date" class="date text-muted">@Model.Post.PubDate</h5>
+        <p>@Model.Post.Body</p>
+    </div>
+
+                                           @*forma e shfaqjes se gjithe komenteve*@
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+               {
+        <div class="col-md-12">
+            <h4 class="text-primary"><a asp-page="Edit" class="btn btn-primary btn-sm" asp-route-id="@Model.Post.PostId" a">Edit Post</a></h4>
+        </div>
+    <form class="col-md-12" id="deletepost" method="post">
+        @if (Model.Post.IsDeleted)
+            {
+            <div>
+                <input type="submit" name="undelete" class="btn btn-primary btn-sm" value="Undelete" asp-route-id="@Model.Post.PostId" asp-page-handler="UnDeletePost" />
+            </div>
+        }
+        else
+        {
+            <div>
+                <input type="submit" name="delete" class="btn btn-primary btn-sm" value="Delete" asp-route-id="@Model.Post.PostId" asp-page-handler="DeletePost" />
+            </div>
+        }
+    </form>
+    }
+                 @* perdoruesit qe nuk jane loguar  i shohin komentet.*@
+    <div class="col-md-6">
+        <h2>Comments</h2>
+        @if (Model.Post.Comments==null)  @*forma ku dalin gjithe komentet e tjera*@
+        {
+            <p class="text-muted">No comments yet. Be the first to comment!</p>
+        }
+        @foreach (var comment in Model.Post.Comments)
+        {
+            string cssClass = comment.IsPublic ? "" : "deletedContent";
+            <form id="form1" method="post">
+                <div class="@cssClass">
+
+                    <div class="well well-sm">
+                        <h4 name="Comment-Title" class="commentTitle">@comment.AuthorName</h4>
+                        <h4 name="Comment-email" class="commentemail">@comment.EmailAddress</h4>
+                        <h6 name="Comment-Date" class="commentDate">@comment.PubDate</h6>
+                        <p name="Comment-Body" class="commentBody">@comment.Body</p>
+                        <input type="hidden" name="PostId" id="PostId" asp-for="@comment.PostId" value="@comment.PostId" />
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))  @*user qe seshte loguar nuk fshin komentin*@
+                        {
+                            <input type="submit" name="deletecomment" class="btn btn-primary btn-sm" value="Delete Comment"  asp-route-id="@comment.CommentId" asp-page-handler="DeleteComment" />
+                            @*  <input type="submit" name="undelete" class="btn btn-primary btn-sm" value="UnDelete Comment" asp-route-id="@Model.Post.PostId" asp-page-handler="UnDeleteComment" />*@
+                        }
+                       
+
+
+                    </div>
+
+                </div>
+
+            </form>
+        }
+    </div>
+
+    
+  
+    <hr class="commentsDivider" />
+    <div class="col-sm-6" style="height:6px;"></div>
+    <div class="add-comment-form">
+        <div class="col-md-6">
+            <h3>Add Comment</h3>                                     @*add comment form *@
+
+            <div class="well">
+                <form id="comment-form" method="post">
+                    <div class="form-group">
+       @*hidden PostId*@         <input type="hidden" value="@Model.Post.PostId" name="newComment.PostId" />
+                        <label for="AuthorName">Name</label>
+                        <input type="text" class="form-control" placeholder="" name="NewComment.AuthorName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="text" class="form-control" placeholder="" name="NewComment.EmailAddress" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Body">Comment</label>
+                        <textarea placeholder="" class="form-control" name="NewComment.Body"></textarea>
+                    </div>
+                    <input type="submit" name="publish" class="btn btn-primary btn-sm" value="Publish" asp-page-handler="PublishComment" />
+                </form>
+            </div>
+        </div>
+    </div>
+                                  
+</article>
+
+
+

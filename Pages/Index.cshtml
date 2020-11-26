@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+
+    if (!Model.PostSummaries.Any())
+    {
+        <div class="jumbotron">
+         <h1>Welcome</h1>
+        <p>Get started and write your first blog post</p>
+        <p>Happy Blogging!</p>
+        </div>
+    }
+
+
+    else
+    {
+        foreach (var post in Model.PostSummaries)
+        {
+         <article>
+             <div class="col-md-12">
+                 <h2> <a asp-page="/Post" asp-route-id="@post.Id"> @post.Title </a> </h2>
+                 <div class="h5 text-muted">@post.PublishTime</div>
+                 <p class="lead">@post.Excerpt</p>
+                 <div class="h4"><a asp-page="/Post" asp-route-id="@post.Id"><i class="fas fa-comments"></i> @post.CommentCount</a></div>
+
+             </div>
+         </article>   
+        }
+    }
+
+}
+
+    
+
+        
+    
+
+

@@ -1,0 +1,55 @@
+﻿@page
+@model FitFriends.Pages.MessagesModel
+@{
+    ViewData["Title"] = "Messages";
+
+
+
+    if (!Model.MessagesSummaries.Any())       //nqs nuk ka mesazhe :
+    {
+        <div class="jumbotron">
+            <h1>Welcome</h1>
+            <p>View your messages here.</p>
+            
+        </div>
+    }
+
+
+    else
+    {
+        foreach (var message in Model.MessagesSummaries)
+        {
+            <article>
+                <div class="col-md-12">
+                    <h2> <a asp-page="/Message" asp-route-id="@message.MessageId"> @message.Name </a> </h2>
+                    <h2> @message.Email</h2>
+                    <h2>@message.Message </h2>
+                </div>
+            </article>
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+

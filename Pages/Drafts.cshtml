@@ -1,0 +1,35 @@
+﻿@page
+@model FitFriends.Pages.DraftsModel
+@{
+    ViewData["Title"] = "Drafts";
+
+
+    <h2>@ViewData["Title"]</h2>
+
+    if (!Model.DraftSummaries.Any())
+    {
+
+        <p>View your saved drafts here.</p>
+    }
+    else
+    {
+        foreach (var post in Model.DraftSummaries)
+        {
+            <article>
+                <div class="col-md-12">
+                    <h2><a asp-page="/Edit" asp-route-id="@post.Id" >@post.Title</a></h2>
+                    
+                  <div class="h5 text-muted">Last Published @post.PublishTime</div>
+                    
+                    <p class="lead">@post.Excerpt</p>
+                    
+                </div>
+            </article>
+        }
+    }
+
+    
+
+}
+
+

@@ -1,0 +1,50 @@
+﻿@page
+@model FitFriends.Pages.LegsModel
+@{
+    ViewData["Title"] = "Legs Category";
+
+
+
+    <h2>@ViewData["Title"]</h2>
+
+    if (!Model.LegsSummaries.Any())
+    {
+
+        <p>View Leg Workouts here.</p>
+    }
+    else
+    {
+        foreach (var post in Model.LegsSummaries)
+        {
+            <article>
+                <div class="col-md-12">
+                    <h2><a asp-page="/Post" asp-route-id="@post.Id">@post.Title</a></h2>
+
+                    <div class="h5 text-muted">Last Published @post.PublishTime</div>
+
+                    <p class="lead">@post.Excerpt</p>
+                    <div class="h4"><a asp-page="/Post" asp-route-id="@post.Id"><i class="fas fa-comments"></i> @post.CommentCount</a></div>
+
+                </div>
+            </article>
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+

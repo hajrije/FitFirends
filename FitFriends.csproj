@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-FitFriends-89D4FD53-F9FE-4489-9AFB-40155D842C41</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200914185634_CommentEmailAddress.cs" />
+    <Compile Remove="Data\Migrations\20200914185634_CommentEmailAddress.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200916102725_AddPropertiesToIdentityUser.cs" />
+    <Compile Remove="Data\Migrations\20200916102725_AddPropertiesToIdentityUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200916121331_AddpropertiestoIdentityuser.cs" />
+    <Compile Remove="Data\Migrations\20200916121331_AddpropertiestoIdentityuser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200916152833_ApplicationUser.cs" />
+    <Compile Remove="Data\Migrations\20200916152833_ApplicationUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200917070849_ApplicationUser.cs" />
+    <Compile Remove="Data\Migrations\20200917070849_ApplicationUser.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+</Project>

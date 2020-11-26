@@ -1,0 +1,56 @@
+﻿@page "{id}"
+@model FitFriends.Pages.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<article>
+<h1>Edit Post</h1>
+<div class="col-md-12 well">
+    <form method="post" id="editpost" enctype="multipart/form-data">
+        <input type="hidden" value="@Model.EditedPost.PostId" name="EditedPost.PostId" />
+        <div class="form-group col-md-6">
+
+            <label for="Title">Title</></label>
+            <input type="text" class="form-control" placeholder="" asp-for="EditedPost.Title" />
+            <span asp-validation-for="EditedPost.Title" class="text-warning"></span>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <label for="Body" class="primaryField">Body</label>
+            <textarea rows="10" class="form-control" placeholder="" asp-for="EditedPost.Body" id="post-body"></textarea>
+            <span asp-validation-for="EditedPost.Body" class="text-warning"></span>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <label for="Excerpt" class="secondaryField">Excerpt (Optional)</label>
+            <textarea class="form-control" placeholder="" asp-for="EditedPost.Excerpt"></textarea>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Upload Files</label>
+                <input type="file" name="files" multiple id="file-input" onchange="insertFiles()" />
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <label for="Category" asp-for="EditedPost.CategoryId">Category:</label> @*mer kategorite nga tabela Category ne db*@
+            <select asp-for="EditedPost.CategoryId" asp-items="Model.Categories">
+            </select>>
+
+        </div>
+        <div class="col-md-12">
+            <input type="submit" name="save" class="btn btn-primary btn-sm" value="Save Draft" asp-page-handler="SaveDraft" />
+            @*     <input type="submit" name="savetrash" class="btn btn-primary btn-sm" value="Save Trash" asp-page-handler="SaveTrash" />*@
+            <input type="submit" name="publish" id="postsave" class="btn btn-primary btn-sm" value="Publish" asp-page-handler="Publish" />
+        </div>
+
+
+        <div class="col-md-12">
+            <p class="cancel-link"><a asp-page="/Drafts" asp-route-id="@Model.EditedPost.PostId"> Cancel and Undo Changes</a></p>
+        </div>
+
+
+    </form>
+</div>
+</article>

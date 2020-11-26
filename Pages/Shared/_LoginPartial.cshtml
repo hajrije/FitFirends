@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager 
+
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="/NewPost"> <i class="fas fa-plus"></i> New Post</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="/Drafts"><i class="fas fa-archive"></i> Drafts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="/Trash"><i class="fas fa-trash-alt"></i>Trash</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="/Messages"><i class="fas fa-sms"></i>Messages</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            </li>
+
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                    <button type="submit" class="nav-link btn btn-link text-dark"><i class="fas fa-sign-out-alt"></i>Logout</button>
+                </form>
+            </li>
+        }
+        else if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="/ContactUs"><i class="far fa-envelope"></i>Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            </li>
+
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                    <button type="submit" class="nav-link btn btn-link text-dark"><i class="fas fa-sign-out-alt"></i>Logout</button>
+                </form>
+            </li>
+
+            
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="/ContactUs"><i class="far fa-envelope"></i>Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i>Login</a>
+            </li>
+        }
+    </ul>

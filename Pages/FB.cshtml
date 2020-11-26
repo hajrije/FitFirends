@@ -1,0 +1,35 @@
+﻿@page
+@model FitFriends.Pages.FBModel
+@{
+    ViewData["Title"] = "Full Body ";
+
+
+    <h2>@ViewData["Title"]</h2>
+
+    if (!Model.FBSummaries.Any())
+    {
+
+        <p>View Full Body Workouts here.</p>
+    }
+    else
+    {
+        foreach (var post in Model.FBSummaries)
+        {
+            <article>
+                <div class="col-md-12">
+                    <h2><a asp-page="/Post" asp-route-id="@post.Id">@post.Title</a></h2>
+
+                    <div class="h5 text-muted">Last Published @post.PublishTime</div>
+
+                    <p class="lead">@post.Excerpt</p>
+                    <div class="h4"><a asp-page="/Post" asp-route-id="@post.Id"><i class="fas fa-comments"></i> @post.CommentCount</a></div>
+
+                </div>
+            </article>
+        }
+    }
+
+
+}
+
+
